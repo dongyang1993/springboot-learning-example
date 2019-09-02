@@ -5,6 +5,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>springboot-devtools</module>
+        <module>springboot-jpa</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
