@@ -10,10 +10,10 @@
 ```
 
 ##### 2. IDEA配置
-> 1. Settings --> Compile --> Build project automatically --> 勾选
-> 2. CTRL + SHIFT + ALT + / --> 查找Registry --> 找到并勾选compiler.automake.allow.when.app.running
-> 3. 在Application配置中勾选update classes and resources
+> 1. 在Application配置中勾选update classes and resources
+> 2. Settings --> Compile --> Build project automatically --> 勾选
+> 3. CTRL + SHIFT + ALT + / --> 查找Registry --> 找到并勾选compiler.automake.allow.when.app.running 
 
 ##### 3. 提示
 > 1. 只能热部署代码块级别的，不能热部署方法级别的 
-> 2. 步骤2中的1、2步操作是否有必要
+> 2. 步骤2中的2、3部是非必要的，手动刷新即可

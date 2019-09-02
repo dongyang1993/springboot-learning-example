@@ -8,7 +8,7 @@ public class GoController {
 
     @GetMapping("/go")
     public String go() {
-        return "Hello World!!!";
+        return "Hello World";
     }
 
     @GetMapping("/hello")
