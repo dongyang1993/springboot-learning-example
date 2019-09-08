@@ -6,6 +6,7 @@
     <modules>
         <module>springboot-devtools</module>
         <module>springboot-jpa</module>
+        <module>springboot-lock</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
