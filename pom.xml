@@ -8,11 +8,12 @@
         <module>springboot-jpa</module>
         <module>springboot-lock</module>
         <module>springboot-jdbc</module>
+        <module>springboot-redirect</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.1.7.RELEASE</version>
+        <version>2.2.6.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>org.springboot</groupId>
