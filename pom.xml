@@ -9,6 +9,7 @@
         <module>springboot-lock</module>
         <module>springboot-jdbc</module>
         <module>springboot-redirect</module>
+        <module>springboot-encrypt</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
