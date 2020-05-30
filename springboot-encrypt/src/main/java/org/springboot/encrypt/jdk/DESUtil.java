@@ -14,6 +14,7 @@ import java.util.Base64;
  * @Author DongYang
  * @Description key长度为8字节
  * iv长度为8字节
+ * CBC模式必须指定向量
  * @Date 2020/5/30 17:49
  **/
 public class DESUtil {
@@ -22,7 +23,7 @@ public class DESUtil {
     public static byte[] encrypt(String keyStr, String ivStr, byte[] data, String transformation, String algorithm) {
         try {
             Cipher cipher = Cipher.getInstance(transformation);
-            SecretKey keySpec = new SecretKeySpec(keyStr.getBytes(StandardCharsets.UTF_8), algorithm);
+            SecretKey secretKey = new SecretKeySpec(keyStr.getBytes(StandardCharsets.UTF_8), algorithm);
             /**
              * 采用密钥工厂创建密钥
              * SecretKeyFactory keyFactory = SecretKeyFactory.getInstance(algorithm);
@@ -30,13 +31,13 @@ public class DESUtil {
              * DESKeySpec desKeySpec = new DESKeySpec(keyStr.getBytes(StandardCharsets.UTF_8));
              * SecretKeySpec desKeySpec = new SecretKeySpec(keyStr.getBytes(StandardCharsets.UTF_8), algorithm);
              *
-             * SecretKey keySpec = keyFactory.generateSecret(desKeySpec);
+             * SecretKey secretKey = keyFactory.generateSecret(desKeySpec);
              */
             if (ivStr != null && ivStr.length() > 0) {
                 IvParameterSpec ivSpec = new IvParameterSpec(ivStr.getBytes(StandardCharsets.UTF_8));
-                cipher.init(Cipher.ENCRYPT_MODE, keySpec, ivSpec);
+                cipher.init(Cipher.ENCRYPT_MODE, secretKey, ivSpec);
             } else {
-                cipher.init(Cipher.ENCRYPT_MODE, keySpec);
+                cipher.init(Cipher.ENCRYPT_MODE, secretKey);
             }
             return cipher.doFinal(data);
         } catch (Exception e) {
@@ -52,12 +53,12 @@ public class DESUtil {
     public static byte[] decrypt(String keyStr, String ivStr, byte[] data, String transformation, String algorithm) {
         try {
             Cipher cipher = Cipher.getInstance(transformation);
-            SecretKeySpec keySpec = new SecretKeySpec(keyStr.getBytes(StandardCharsets.UTF_8), algorithm);
+            SecretKey secretKey = new SecretKeySpec(keyStr.getBytes(StandardCharsets.UTF_8), algorithm);
             if (ivStr != null && ivStr.length() > 0) {
                 IvParameterSpec ivSpec = new IvParameterSpec(ivStr.getBytes(StandardCharsets.UTF_8));
-                cipher.init(Cipher.DECRYPT_MODE, keySpec, ivSpec);
+                cipher.init(Cipher.DECRYPT_MODE, secretKey, ivSpec);
             } else {
-                cipher.init(Cipher.DECRYPT_MODE, keySpec);
+                cipher.init(Cipher.DECRYPT_MODE, secretKey);
             }
             return cipher.doFinal(data);
         } catch (Exception e) {
@@ -73,7 +74,7 @@ public class DESUtil {
 
     public static void main(String[] args) {
         String keyStr = "abcdefgh";
-        String ivStr = "12345678";
+        String ivStr = "";//""12345678";
         String transformation = "DES/CBC/PKCS5Padding";
         String algorithm = "DES";
         String data = "中国@1234";

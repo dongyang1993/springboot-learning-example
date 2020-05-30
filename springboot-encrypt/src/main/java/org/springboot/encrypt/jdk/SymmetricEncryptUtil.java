@@ -12,13 +12,11 @@ import java.util.Base64;
 
 /**
  * @Author DongYang
- * @Description key长度为24字节
- * iv长度为8字节
- * CBC模式必须指定向量
- * @Date 2020/5/30 17:49
+ * @Description 对称加密工具类
+ * @Date 2020/5/30 19:46
  **/
-public class DESedeUtil {
-    private static final Logger LOGGER = LoggerFactory.getLogger(DESedeUtil.class);
+public class SymmetricEncryptUtil {
+    private static final Logger LOGGER = LoggerFactory.getLogger(AESUtil.class);
 
     public static byte[] encrypt(String keyStr, String ivStr, byte[] data, String transformation, String algorithm) {
         try {
@@ -70,17 +68,5 @@ public class DESedeUtil {
     public static byte[] decryptBase64(String keyStr, String ivStr, byte[] data, String transformation, String algorithm) {
         byte[] tmp = Base64.getDecoder().decode(data);
         return decrypt(keyStr, ivStr, tmp, transformation, algorithm);
-    }
-
-    public static void main(String[] args) {
-        String keyStr = "abcdefghabcdefghabcdefgh";
-        String ivStr = "12345678";
-        String transformation = "DESede/CBC/PKCS5Padding";
-        String algorithm = "DESede";
-        String data = "中国@1234";
-        String base64 = encryptBase64(keyStr, ivStr, data.getBytes(StandardCharsets.UTF_8), transformation, algorithm);
-        System.out.println(base64);
-        byte[] decrypt = decryptBase64(keyStr, ivStr, base64.getBytes(StandardCharsets.UTF_8), transformation, algorithm);
-        System.out.println(new String(decrypt));
     }
 }
