@@ -1,6 +1,8 @@
 package org.springboot.encrypt.jdk;
 
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.crypto.Cipher;
 import javax.crypto.SecretKeyFactory;
@@ -19,6 +21,7 @@ import java.util.Base64;
  * Key必须为24字节长度(大于24字节的，会自动截取24字节)
  **/
 public final class TripleDesUtil {
+    private static final Logger LOGGER = LoggerFactory.getLogger(TripleDesUtil.class);
 
     public static final String KEY_ALGORITHM = "DESede";
     public static final String ALGORITHM1 = "DESede/CBC/PKCS5Padding";
@@ -29,22 +32,29 @@ public final class TripleDesUtil {
         Security.addProvider(new BouncyCastleProvider());
     }
 
-    public static byte[] encode(String key, byte[] source, String iv, String algorithm) throws Exception {
-        Cipher cipher = Cipher.getInstance(algorithm);
-        IvParameterSpec ivParameterSpec = new IvParameterSpec(iv.getBytes());
-        cipher.init(Cipher.ENCRYPT_MODE, buildKey(key), ivParameterSpec);
-        return cipher.doFinal(source);
+    public static byte[] encode(String keyStr, byte[] source, String iv, String algorithm) {
+        try {
+            Cipher cipher = Cipher.getInstance(algorithm);
+            Key key = buildKey(keyStr);
+            IvParameterSpec ivParameterSpec = new IvParameterSpec(iv.getBytes());
+            cipher.init(Cipher.ENCRYPT_MODE, key, ivParameterSpec);
+            return cipher.doFinal(source);
+        } catch (Exception e) {
+            LOGGER.error("", e);
+        }
+        return new byte[0];
     }
 
-    public static String encodeToBase64(String key, byte[] source, String iv, String algorithm) throws Exception {
+    public static String encodeToBase64(String key, byte[] source, String iv, String algorithm) {
         return Base64.getEncoder().encodeToString(TripleDesUtil.encode(key, source, iv, algorithm));
     }
 
 
-    public static byte[] decode(String key, byte[] source, String iv, String algorithm) throws Exception {
+    public static byte[] decode(String keyStr, byte[] source, String iv, String algorithm) throws Exception {
         Cipher cipher = Cipher.getInstance(algorithm);
         IvParameterSpec ivParameterSpec = new IvParameterSpec(iv.getBytes());
-        cipher.init(Cipher.DECRYPT_MODE, buildKey(key), ivParameterSpec);
+        Key key = buildKey(keyStr);
+        cipher.init(Cipher.DECRYPT_MODE, key, ivParameterSpec);
         return cipher.doFinal(source);
     }
 

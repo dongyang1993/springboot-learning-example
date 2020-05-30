@@ -3,7 +3,7 @@ package org.springboot.encrypt.jdk;
 import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
 
-public class AesHelper {
+public class AesUtil {
 
     private String keyAlgorithm = "AES";
     private String algorithm = "AES/CBC/PKCS5Padding";
