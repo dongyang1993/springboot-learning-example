@@ -21,16 +21,16 @@ public class HexUtil {
             throw new IllegalArgumentException("Expected a string of even length");
         }
         int size = data.length() / 2;
-        byte[] result = new byte[size];
+        byte[] bytes = new byte[size];
         for (int i = 0; i < size; i++) {
             int hi = Character.digit(data.charAt(2 * i), 16);
             int lo = Character.digit(data.charAt(2 * i + 1), 16);
             if ((hi == -1) || (lo == -1)) {
                 throw new IllegalArgumentException("input is not hexadecimal");
             }
-            result[i] = (byte) (16 * hi + lo);
+            bytes[i] = (byte) (16 * hi + lo);
         }
-        return result;
+        return bytes;
     }
 
     public static void main(String[] args) {

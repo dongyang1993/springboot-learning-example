@@ -1,4 +1,4 @@
-package org.springboot.encrypt.jdk;
+package org.springboot.encrypt.jdk.symmetric.demo;
 
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.slf4j.Logger;

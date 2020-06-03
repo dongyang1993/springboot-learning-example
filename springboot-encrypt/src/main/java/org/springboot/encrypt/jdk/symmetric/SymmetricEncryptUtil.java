@@ -1,7 +1,8 @@
-package org.springboot.encrypt.jdk;
+package org.springboot.encrypt.jdk.symmetric;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springboot.encrypt.jdk.symmetric.demo.AesUtil;
 
 import javax.crypto.Cipher;
 import javax.crypto.SecretKey;
@@ -16,7 +17,7 @@ import java.util.Base64;
  * @Date 2020/5/30 19:46
  **/
 public class SymmetricEncryptUtil {
-    private static final Logger LOGGER = LoggerFactory.getLogger(AESUtil.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(AesUtil.class);
 
     public static byte[] encrypt(String keyStr, String ivStr, byte[] data, String transformation, String algorithm) {
         try {

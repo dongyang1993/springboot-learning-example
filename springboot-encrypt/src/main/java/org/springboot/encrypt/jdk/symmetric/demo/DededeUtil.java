@@ -1,4 +1,4 @@
-package org.springboot.encrypt.jdk;
+package org.springboot.encrypt.jdk.symmetric.demo;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,13 +12,13 @@ import java.util.Base64;
 
 /**
  * @Author DongYang
- * @Description key长度为8字节
+ * @Description key长度为24字节
  * iv长度为8字节
  * CBC模式必须指定向量
  * @Date 2020/5/30 17:49
  **/
-public class DESUtil {
-    private static final Logger LOGGER = LoggerFactory.getLogger(DESUtil.class);
+public class DededeUtil {
+    private static final Logger LOGGER = LoggerFactory.getLogger(DededeUtil.class);
 
     public static byte[] encrypt(String keyStr, String ivStr, byte[] data, String transformation, String algorithm) {
         try {
@@ -73,10 +73,10 @@ public class DESUtil {
     }
 
     public static void main(String[] args) {
-        String keyStr = "abcdefgh";
-        String ivStr = "";//""12345678";
-        String transformation = "DES/CBC/PKCS5Padding";
-        String algorithm = "DES";
+        String keyStr = "abcdefghabcdefghabcdefgh";
+        String ivStr = "12345678";
+        String transformation = "DESede/CBC/PKCS5Padding";
+        String algorithm = "DESede";
         String data = "中国@1234";
         String base64 = encryptBase64(keyStr, ivStr, data.getBytes(StandardCharsets.UTF_8), transformation, algorithm);
         System.out.println(base64);

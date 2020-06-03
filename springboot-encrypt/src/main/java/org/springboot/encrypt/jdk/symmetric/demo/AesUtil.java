@@ -1,4 +1,4 @@
-package org.springboot.encrypt.jdk;
+package org.springboot.encrypt.jdk.symmetric.demo;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,8 +17,8 @@ import java.util.Base64;
  * CBC模式必须指定向量
  * @Date 2020/5/30 17:49
  **/
-public class AESUtil {
-    private static final Logger LOGGER = LoggerFactory.getLogger(AESUtil.class);
+public class AesUtil {
+    private static final Logger LOGGER = LoggerFactory.getLogger(AesUtil.class);
 
     public static byte[] encrypt(String keyStr, String ivStr, byte[] data, String transformation, String algorithm) {
         try {
