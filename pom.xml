@@ -10,6 +10,9 @@
         <module>springboot-jdbc</module>
         <module>springboot-redirect</module>
         <module>springboot-encrypt</module>
+        <module>springboot-security</module>
+        <module>springboot-web</module>
+        <module>springboot-oauth2</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -37,7 +40,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
         </dependency>
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
@@ -59,6 +61,11 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-bom</artifactId>
+            <version>5.3.3.RELEASE</version>
         </dependency>
     </dependencies>
 
