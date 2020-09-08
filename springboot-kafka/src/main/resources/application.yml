@@ -1,0 +1,8 @@
+server:
+  port: 8080
+
+spring:
+  kafka:
+    bootstrap-servers: 192.168.116.99:9092,192.168.116.100:9092,192.168.116.101:9092
+    listener:
+      missing-topics-fatal: false

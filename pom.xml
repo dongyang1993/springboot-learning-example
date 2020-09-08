@@ -13,6 +13,7 @@
         <module>springboot-security</module>
         <module>springboot-web</module>
         <module>springboot-oauth2</module>
+        <module>springboot-kafka</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
