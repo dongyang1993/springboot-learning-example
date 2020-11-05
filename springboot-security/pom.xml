@@ -14,6 +14,7 @@
     <modules>
         <module>springboot-security-simple</module>
         <module>springboot-security-learn01</module>
+        <module>springboot-security-learn02</module>
     </modules>
 
 </project>
