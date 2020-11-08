@@ -1,12 +1,14 @@
 package security.entity;
 
+import lombok.Data;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "t_user")
-public class UserPO implements Serializable {
+public class MineUser implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -24,6 +26,17 @@ public class UserPO implements Serializable {
 
     @Column
     private LocalDateTime updateTime;
+
+    @Override
+    public String toString() {
+        return "UserPO{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", password='" + password + '\'' +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                '}';
+    }
 
     public Long getId() {
         return id;

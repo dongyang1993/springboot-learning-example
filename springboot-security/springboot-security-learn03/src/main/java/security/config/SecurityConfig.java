@@ -28,4 +28,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http
+                .formLogin()//自定义自己编写的登陆页面
+                .loginPage()//登陆页面设置
+                .loginProcessingUrl()//登陆访问URL控制
+    }
 }
