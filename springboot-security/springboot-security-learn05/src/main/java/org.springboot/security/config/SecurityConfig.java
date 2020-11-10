@@ -51,5 +51,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()//其他访问都需要权限验证
                 .and()
                 .csrf().disable();//关闭CSRF防护
+
+        http.exceptionHandling().accessDeniedPage("/403.html");
     }
 }
