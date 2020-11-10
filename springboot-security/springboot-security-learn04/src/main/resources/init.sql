@@ -22,7 +22,7 @@ DROP TABLE IF EXISTS `t_user`;
 
 CREATE TABLE `t_user` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `name` varchar(20) NOT NULL COMMENT '用户名',
+  `username` varchar(20) NOT NULL COMMENT '用户名',
   `password` varchar(20) NOT NULL COMMENT '密码',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   `update_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
@@ -32,7 +32,7 @@ CREATE TABLE `t_user` (
 
 /*Data for the table `t_user` */
 
-insert  into `t_user`(`id`,`name`,`password`,`create_time`,`update_time`) values 
+insert  into `t_user`(`id`,`username`,`password`,`create_time`,`update_time`) values
 (1,'root','123456','2020-11-08 11:06:16','2020-11-08 11:06:16');
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;

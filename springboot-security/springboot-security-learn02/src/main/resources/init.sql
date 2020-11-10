@@ -32,7 +32,7 @@ CREATE TABLE `t_user` (
 
 /*Data for the table `t_user` */
 
-insert  into `t_user`(`id`,`name`,`password`,`create_time`,`update_time`) values 
+insert  into `t_user`(`id`,`username`,`password`,`create_time`,`update_time`) values
 (1,'root','123456','2020-11-08 11:06:16','2020-11-08 11:06:16');
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
