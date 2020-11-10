@@ -19,6 +19,7 @@
         <module>springboot-security-learn03</module>
         <module>springboot-security-learn04</module>
         <module>springboot-security-learn05</module>
+        <module>springboot-security-learn06</module>
     </modules>
 
 </project>
