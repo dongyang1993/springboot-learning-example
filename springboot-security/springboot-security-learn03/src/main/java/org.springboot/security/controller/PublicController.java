@@ -5,13 +5,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/index")
-public class IndexController {
+@RequestMapping("/public")
+public class PublicController {
 
-    @GetMapping("/welcome")
-    public String index() {
-        return "welcome user";
+    @GetMapping("/ad")
+    public String publicView() {
+        return "Hello Ad";
     }
-
-
 }
