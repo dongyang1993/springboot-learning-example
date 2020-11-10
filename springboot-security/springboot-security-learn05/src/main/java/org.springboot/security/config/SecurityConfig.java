@@ -46,8 +46,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers("/","/auth/login", "/public/**").permitAll()//设置不需要认证，直接访问的URL
-                .antMatchers("/auth/user").hasAuthority("admin") //hasAuthority里面权限参数可以用逗号分隔多个权限，表示需要同时拥有这些权限才行 hasAuthority("admin,manager")
-//                .antMatchers("/auth/user").hasAnyAuthority("admin", "manager")//hasAnyAuthority表示拥有这些权限中的任一个就可以
+                .antMatchers("/auth/**").hasRole("root") //hasAuthority里面权限参数可以用逗号分隔多个权限，表示需要同时拥有这些权限才行 hasAuthority("admin,manager")
+//                .antMatchers("/auth/user").hasAnyRole("admin", "manager")//hasAnyAuthority表示拥有这些权限中的任一个就可以
                 .anyRequest().authenticated()//其他访问都需要权限验证
                 .and()
                 .csrf().disable();//关闭CSRF防护

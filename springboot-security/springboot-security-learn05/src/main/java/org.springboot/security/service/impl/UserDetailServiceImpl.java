@@ -30,7 +30,8 @@ public class UserDetailServiceImpl implements UserDetailsService {
         if (mineUser == null) {
             throw new UsernameNotFoundException("用户名不存在");
         }
-        List<GrantedAuthority> authorities = AuthorityUtils.commaSeparatedStringToAuthorityList("admin");
+        //
+        List<GrantedAuthority> authorities = AuthorityUtils.commaSeparatedStringToAuthorityList("ROLE_root");
         return new User(mineUser.getUsername(), passwordEncoder.encode(mineUser.getPassword()), authorities);
     }
 }
