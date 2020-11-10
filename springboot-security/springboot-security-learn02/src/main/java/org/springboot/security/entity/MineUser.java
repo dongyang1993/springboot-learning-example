@@ -16,7 +16,7 @@ public class MineUser implements Serializable {
     private Long id;
 
     @Column
-    private String name;
+    private String username;
 
     @Column
     private String password;
@@ -31,7 +31,7 @@ public class MineUser implements Serializable {
     public String toString() {
         return "UserPO{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
+                ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", createTime=" + createTime +
                 ", updateTime=" + updateTime +
@@ -46,12 +46,12 @@ public class MineUser implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getUsername() {
+        return username;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {

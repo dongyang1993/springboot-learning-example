@@ -46,6 +46,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers("/","/auth/login", "/public/**").permitAll()//设置不需要认证，直接访问的URL
+                .antMatchers("/auth/user").hasAuthority("admin")
                 .anyRequest().authenticated()//其他访问都需要权限验证
                 .and()
                 .csrf().disable();//关闭CSRF防护

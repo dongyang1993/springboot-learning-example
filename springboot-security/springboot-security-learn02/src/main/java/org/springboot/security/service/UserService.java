@@ -8,5 +8,5 @@ public interface UserService {
 
     MineUser getById(Long id);
 
-    MineUser getByName(String name);
+    MineUser getByUsername(String name);
 }

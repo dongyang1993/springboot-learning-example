@@ -7,5 +7,5 @@ import org.springboot.security.entity.MineUser;
 @Repository
 public interface UserRepository extends JpaRepository<MineUser, Long> {
 
-    MineUser findByName(String name);
+    MineUser findByUsername(String username);
 }

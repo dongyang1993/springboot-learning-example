@@ -26,11 +26,11 @@ public class UserDetailServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-        MineUser mineUser = userService.getByName(userName);
+        MineUser mineUser = userService.getByUsername(userName);
         if (mineUser == null) {
             throw new UsernameNotFoundException("用户名不存在");
         }
         List<GrantedAuthority> authorities = AuthorityUtils.commaSeparatedStringToAuthorityList("role");
-        return new User(mineUser.getName(), passwordEncoder.encode(mineUser.getPassword()), authorities);
+        return new User(mineUser.getUsername(), passwordEncoder.encode(mineUser.getPassword()), authorities);
     }
 }
