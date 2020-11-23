@@ -2,6 +2,7 @@ package org.springboot.security.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springboot.security.entity.MineUser;
@@ -34,9 +35,31 @@ public class AuthController {
         return this.findOne();
     }
 
+
+    //单个角色
     @Secured("ROLE_root")
     private String findOne() {
         return "One";
     }
 
+    //多个角色（拥有一个即可）
+    @Secured({"ROLE_root", "ROLE_manager"})
+    private String findTwo() {
+        return "Two";
+    }
+
+    @PreAuthorize("hasAnyAuthority('menu:system')")
+    private String findThree() {
+        return "Three";
+    }
+
+    @PreAuthorize("hasAnyRole()")
+    private String findFour() {
+        return "Three";
+    }
+
+    @PreAuthorize("hasPermission('')")
+    private String findFive() {
+        return "Five";
+    }
 }
