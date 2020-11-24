@@ -1,29 +1,39 @@
 package org.springboot.security.entity;
 
-import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-@Entity
-@Table(name = "t_user")
+//@Entity
+//@Table(name = "t_user")
 public class MineUser implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
+//    @Column
     private String username;
 
-    @Column
+//    @Column
     private String password;
 
-    @Column
+//    @Column
     private LocalDateTime createTime;
 
-    @Column
+//    @Column
     private LocalDateTime updateTime;
+
+    public MineUser() {
+    }
+
+    public MineUser(Long id, String username, String password, LocalDateTime createTime, LocalDateTime updateTime) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.createTime = createTime;
+        this.updateTime = updateTime;
+    }
 
     @Override
     public String toString() {

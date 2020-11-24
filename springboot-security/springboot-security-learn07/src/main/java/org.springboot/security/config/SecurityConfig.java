@@ -41,7 +41,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin()//自定义自己编写的登陆页面
                 .loginPage("/login.html")//登陆页面设置
                 .loginProcessingUrl("/auth/login")//登陆访问URL控制, 这个Controller不需要我们实现，SpringSecurity自己管理，只需要一个地址就行
-                .defaultSuccessUrl("/index/welcome") //登陆成功之后跳转的URL
+                .defaultSuccessUrl("/index/success") //登陆成功之后跳转的URL
                 .permitAll()
                 .and()
                 .authorizeRequests()
@@ -51,7 +51,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()//其他访问都需要权限验证
                 .and()
                 .csrf().disable();//关闭CSRF防护
-
+        //退出功能（注销）
+        http.logout().logoutUrl("/logout").logoutSuccessUrl("/index/welcome").permitAll();
         http.exceptionHandling().accessDeniedPage("/403.html");
     }
 }
