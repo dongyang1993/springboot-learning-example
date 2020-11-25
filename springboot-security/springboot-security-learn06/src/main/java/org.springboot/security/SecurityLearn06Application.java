@@ -4,10 +4,11 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 
-@EnableGlobalMethodSecurity
+//开启全局方法级权限验证
+@EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true)
 @SpringBootApplication
-public class SecurityLearn05Application {
+public class SecurityLearn06Application {
     public static void main(String[] args) {
-        SpringApplication.run(SecurityLearn05Application.class, args);
+        SpringApplication.run(SecurityLearn06Application.class, args);
     }
 }
