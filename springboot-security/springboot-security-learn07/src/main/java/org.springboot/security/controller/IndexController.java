@@ -16,7 +16,7 @@ public class IndexController {
 
     @GetMapping("/success")
     public String success() {
-        return "/static/success.html";
+        return "success";
     }
 
 }

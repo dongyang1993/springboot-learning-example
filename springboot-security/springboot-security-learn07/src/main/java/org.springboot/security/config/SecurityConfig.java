@@ -31,11 +31,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-    public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/static/**");
-    }
-
-    @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .formLogin()//自定义自己编写的登陆页面

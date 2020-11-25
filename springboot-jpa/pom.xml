@@ -13,7 +13,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>springboot-jpa-single</module>
-        <module>springboot-jpa-multi</module>
+<!--        <module>springboot-jpa-multi</module>-->
     </modules>
 
 </project>

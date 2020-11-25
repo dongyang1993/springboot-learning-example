@@ -12,9 +12,9 @@
     <artifactId>springboot-oauth2</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>springboot-oauth2-appclient</module>
-        <module>springboot-oauth2-resourceserver</module>
-        <module>springboot-oauth2-authorizationserver</module>
+<!--        <module>springboot-oauth2-appclient</module>-->
+<!--        <module>springboot-oauth2-resourceserver</module>-->
+<!--        <module>springboot-oauth2-authorizationserver</module>-->
     </modules>
 
 
