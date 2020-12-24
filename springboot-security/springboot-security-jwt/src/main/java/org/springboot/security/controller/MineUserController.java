@@ -1,5 +1,6 @@
 package org.springboot.security.controller;
 
+import io.swagger.annotations.ApiOperation;
 import org.springboot.security.entity.MineUser;
 import org.springboot.security.service.MineUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ public class MineUserController {
     @Autowired
     private MineUserService mineUserService;
 
+    @ApiOperation(value = "获取全部用户列表")
     @GetMapping("/listAll")
     public List<MineUser> listAll() {
         return mineUserService.listAll();
