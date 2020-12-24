@@ -7,4 +7,6 @@ import java.util.List;
 public interface MineUserService {
 
     List<MineUser> listAll();
+
+    MineUser getByUsername(String username);
 }

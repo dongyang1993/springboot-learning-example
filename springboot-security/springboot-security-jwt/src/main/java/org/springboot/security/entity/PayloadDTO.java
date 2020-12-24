@@ -10,8 +10,8 @@ import java.util.List;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Builder
-public class Payload {
-    @ApiModelProperty("")
+public class PayloadDTO {
+    @ApiModelProperty("主题")
     private String sub;
     @ApiModelProperty("签发时间")
     private Long iat;
