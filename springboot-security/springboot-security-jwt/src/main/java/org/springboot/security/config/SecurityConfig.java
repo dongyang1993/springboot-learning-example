@@ -43,10 +43,27 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.formLogin().loginPage("/login").permitAll();
+        http.formLogin()
+                /**
+                 * .loginPage("/login.html")
+                 * 这一行代码的功能是指定自定义的登陆页面HTML，
+                 * 如果不自定义的话，spring security回提供默认的html不过有于里面的css文件在国外，如果不开代理显示会有问题
+                 *
+                 */
+                .loginPage("/login.html")
+                .loginProcessingUrl("/auth/login")
+                .successForwardUrl("/index")
+                .failureForwardUrl("/login")
+                .permitAll();
+
+        /**
+         * 关闭CSRF防护
+          */
+        http.csrf().disable();
+
         http.authorizeRequests()
-                .antMatchers("/token/**").permitAll()
-                .antMatchers("/static/**").permitAll()
+                .antMatchers("/auth/**", "/token/**").permitAll()
+                .antMatchers("/static/**", "/css/**", "/js/**", "/images/**").permitAll()
                 .anyRequest().authenticated();
     }
 }
