@@ -26,7 +26,7 @@ public class JwtTokenController {
     private JwtTokenService jwtTokenService;
 
     @ApiOperation("使用对称加密（HMAC）算法生成token")
-    @PostMapping("/hmac/generate")
+    @GetMapping("/hmac/generate")
     public Rs<String> generateTokenByHMAC() {
         try {
             PayloadDTO payloadDTO = jwtTokenService.getDefaultPayload();
@@ -41,7 +41,7 @@ public class JwtTokenController {
 
 
     @ApiOperation("使用对称加密（HMAC）算法验证token")
-    @RequestMapping(value = "/hmac/verify", method = RequestMethod.GET)
+    @GetMapping(value = "/hmac/verify")
     @ResponseBody
     public Rs verifyTokenByHMAC(String token) {
         try {
