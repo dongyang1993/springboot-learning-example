@@ -1,6 +1,5 @@
 package org.springboot.security.config;
 
-import org.springboot.security.service.MineUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -53,7 +52,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginPage("/login.html")
                 .loginProcessingUrl("/auth/login")
                 .successForwardUrl("/index")
-                .failureForwardUrl("/login")
                 .permitAll();
 
         /**
