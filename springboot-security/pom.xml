@@ -23,6 +23,7 @@
         <module>springboot-security-learn07</module>
         <module>springboot-security-jwt01</module>
         <module>springboot-security-jwt02</module>
+        <module>springboot-security-jwt03</module>
     </modules>
 
 </project>
