@@ -1,13 +1,16 @@
 package org.springboot.security.config;
 
-import org.springboot.security.filter.JwtAuthenticationTokenFilter;
+import org.springboot.security.filter.JwtAuthenticationFilter;
+import org.springboot.security.filter.JwtAuthorizationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -15,20 +18,33 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+@EnableWebSecurity
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Qualifier("userDetailsService")
     @Autowired
     private UserDetailsService userDetailsService;
-    @Autowired
-    private JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter;
+
+    @Value("${jwt.tokenHeader}")
+    private String tokenHeader;
+    @Value("${jwt.secret}")
+    private String secret;
+    @Value("${jwt.expiration}")
+    private long expiration;
+    @Value("${jwt.tokenHead}")
+    private String tokenHead;
 
     @Bean
     PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
+    /**
+     * 配置AuthenticationManager
+     * @param auth
+     * @throws Exception
+     */
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
@@ -53,17 +69,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
          * 如果不自定义的话，spring security回提供默认的html不过有于里面的css文件在国外，如果不开代理显示会有问题
          *
          */
-        http.formLogin()
-                .loginPage("/login.html")
-                .loginProcessingUrl("/auth/login")
-                .successForwardUrl("/index")
-                .permitAll();
+//        http.formLogin()
+//                .loginPage("/login.html")
+//                .loginProcessingUrl("/auth/login")
+//                .successForwardUrl("/index")
+//                .permitAll();
 
 
         http.authorizeRequests()
-                .antMatchers("/auth/**", "/token/**").permitAll()
+                .antMatchers("/auth/**").permitAll()
                 .antMatchers("/static/**", "/css/**", "/js/**", "/images/**").permitAll()
                 .anyRequest().authenticated();
+
+        /**
+         * 配置JWT过滤器
+         * addFilterBefore在指定的Filter类之前添加过滤器
+         */
+        http.addFilter(new JwtAuthenticationFilter(authenticationManager()))
+                .addFilter(new JwtAuthorizationFilter(authenticationManager(), userDetailsService, tokenHeader, tokenHead, secret));
 
 
         /**
@@ -84,12 +107,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
          * STATELESS    不会新建，也不会使用一个HttpSession
          */
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-
-        /**
-         * 配置JWT过滤器
-         * addFilterBefore在指定的Filter类之前添加过滤器
-         */
-        http.addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);
 
     }
 }

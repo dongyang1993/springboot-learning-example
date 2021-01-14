@@ -2,6 +2,7 @@ package org.springboot.security.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
+import org.springboot.security.utils.JacksonUtil;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -24,8 +25,7 @@ public class ResponseInfoFilter implements ResponseBodyAdvice<Object> {
     @Override
     public Object beforeBodyWrite(Object o, MethodParameter methodParameter, MediaType mediaType, Class<? extends HttpMessageConverter<?>> aClass, ServerHttpRequest serverHttpRequest, ServerHttpResponse serverHttpResponse) {
         try {
-            ObjectMapper mapper = new ObjectMapper();
-            String json = mapper.writeValueAsString(o);
+            String json = JacksonUtil.toJson(o);
             log.info("Response:{}", json);
         } catch (Exception e) {
             log.error("", e);

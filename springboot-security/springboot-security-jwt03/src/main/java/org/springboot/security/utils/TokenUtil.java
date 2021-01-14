@@ -1,4 +1,4 @@
-package org.springboot.security.service.impl;
+package org.springboot.security.utils;
 
 import cn.hutool.crypto.SecureUtil;
 import cn.hutool.json.JSONUtil;
@@ -8,32 +8,31 @@ import com.nimbusds.jose.crypto.MACVerifier;
 import org.springboot.security.entity.PayloadDTO;
 import org.springboot.security.exception.JwtExpiredException;
 import org.springboot.security.exception.JwtInvalidException;
-import org.springboot.security.service.JwtTokenService;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
-import java.time.LocalDateTime;
-import java.time.ZoneOffset;
-import java.util.Date;
-import java.util.List;
 import java.util.UUID;
 
-@Service
-public class JwtTokenServiceImpl implements JwtTokenService {
 
-    @Value("${jwt.tokenHeader}")
-    private String tokenHeader;
-    @Value("${jwt.secret}")
-    private String secret;
-    @Value("${jwt.expiration}")
-    private Integer expiration;
-    @Value("${jwt.tokenHead}")
-    private String tokenHead;
+/**
+ * JWT 的三个部分依次如下。
+ * Header（头部）
+ * Payload（负载）
+ * Signature（签名）
+ * 即: Header.Payload.Signature
+ *
+ * Payload官方规定了7个属性供选用，也可以自定义属性
+ * iss (issuer)：签发人
+ * exp (expiration time)：过期时间
+ * sub (subject)：主题
+ * aud (audience)：受众
+ * nbf (Not Before)：生效时间
+ * iat (Issued At)：签发时间
+ * jti (JWT ID)：编号
+ * JWT 默认是不加密的
+ */
+public final class TokenUtil {
 
-    @Override
-    public String generateTokenByHMAC(String payloadDTO) throws JOSEException {
+    public static String generateTokenByHMAC(String payloadDTO, String secret) throws JOSEException {
         //创建JWS头、设置前面算法和类型
         JWSHeader jwsHeader = new JWSHeader.Builder(JWSAlgorithm.HS256).type(JOSEObjectType.JWT).build();
         //将负载信息封装到Payload中
@@ -48,8 +47,7 @@ public class JwtTokenServiceImpl implements JwtTokenService {
     }
 
 
-    @Override
-    public PayloadDTO verifyTokenByHMAC(String token) throws ParseException, JOSEException {
+    public static PayloadDTO verifyTokenByHMAC(String token, String secret) throws ParseException, JOSEException {
         //从token中解析JWS对象
         JWSObject jwsObject = JWSObject.parse(token);
         //创建HMAC验证器
@@ -65,17 +63,17 @@ public class JwtTokenServiceImpl implements JwtTokenService {
         return payloadDto;
     }
 
-    @Override
-    public PayloadDTO getDefaultPayload(UserDetails userDetails) {
+    public static String getDefaultPayload(String username, Long expiration) {
         long now = System.currentTimeMillis();
         long exp = now + expiration;
-        return PayloadDTO.builder()
+        PayloadDTO payloadDTO = PayloadDTO.builder()
                 .sub("token")
+                .jti(UUID.randomUUID().toString())
+                .username(username)
                 .iat(now)
                 .exp(exp)
-                .jti(UUID.randomUUID().toString())
-                .username(userDetails.getUsername())
-                .authorities(List.of("Admin"))
                 .build();
+
+        return JacksonUtil.toJson(payloadDTO);
     }
 }

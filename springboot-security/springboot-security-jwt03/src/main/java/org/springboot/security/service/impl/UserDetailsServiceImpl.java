@@ -1,7 +1,7 @@
 package org.springboot.security.service.impl;
 
-import org.springboot.security.entity.MineUser;
-import org.springboot.security.service.MineUserService;
+import org.springboot.security.entity.SysUser;
+import org.springboot.security.service.SysUserService;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.User;
@@ -17,16 +17,16 @@ import java.util.List;
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Resource
-    private MineUserService mineUserService;
+    private SysUserService mineUserService;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        MineUser mineUser = mineUserService.getByUsername(username);
-        if (mineUser == null) {
+        SysUser sysUser = mineUserService.getByUsername(username);
+        if (sysUser == null) {
             throw new UsernameNotFoundException("用户名不存在");
         }
         //权限
         List<GrantedAuthority> authorities = AuthorityUtils.commaSeparatedStringToAuthorityList("ROLE_root");
-        return new User(mineUser.getUsername(), mineUser.getPassword(), authorities);
+        return new User(sysUser.getUsername(), sysUser.getPassword(), authorities);
     }
 }
