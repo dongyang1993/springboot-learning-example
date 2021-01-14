@@ -53,11 +53,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
          * 如果不自定义的话，spring security回提供默认的html不过有于里面的css文件在国外，如果不开代理显示会有问题
          *
          */
-//        http.formLogin()
-//                .loginPage("/login.html")
-//                .loginProcessingUrl("/auth/login")
-//                .successForwardUrl("/index")
-//                .permitAll();
+        http.formLogin()
+                .loginPage("/login.html")
+                .loginProcessingUrl("/auth/login")
+                .successForwardUrl("/index")
+                .permitAll();
 
 
         http.authorizeRequests()
