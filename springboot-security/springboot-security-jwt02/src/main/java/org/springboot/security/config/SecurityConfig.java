@@ -1,5 +1,6 @@
 package org.springboot.security.config;
 
+import org.springboot.security.filter.JwtAuthenticationTokenFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -12,6 +13,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -19,6 +21,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Qualifier("userDetailsService")
     @Autowired
     private UserDetailsService userDetailsService;
+    @Autowired
+    private JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter;
 
     @Bean
     PasswordEncoder passwordEncoder() {
@@ -43,17 +47,29 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.formLogin()
-                /**
-                 * .loginPage("/login.html")
-                 * 这一行代码的功能是指定自定义的登陆页面HTML，
-                 * 如果不自定义的话，spring security回提供默认的html不过有于里面的css文件在国外，如果不开代理显示会有问题
-                 *
-                 */
-                .loginPage("/login.html")
-                .loginProcessingUrl("/auth/login")
-                .successForwardUrl("/index")
-                .permitAll();
+        /**
+         * .loginPage("/login.html")
+         * 这一行代码的功能是指定自定义的登陆页面HTML，
+         * 如果不自定义的话，spring security回提供默认的html不过有于里面的css文件在国外，如果不开代理显示会有问题
+         *
+         */
+//        http.formLogin()
+//                .loginPage("/login.html")
+//                .loginProcessingUrl("/auth/login")
+//                .successForwardUrl("/index")
+//                .permitAll();
+
+
+        http.authorizeRequests()
+                .antMatchers("/auth/**", "/token/**").permitAll()
+                .antMatchers("/static/**", "/css/**", "/js/**", "/images/**").permitAll()
+                .anyRequest().authenticated();
+
+
+        /**
+         * 配置异常情况处理
+         */
+//        http.exceptionHandling().accessDeniedHandler();
 
         /**
          * 关闭CSRF防护
@@ -62,12 +78,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         /**
          * 因为要改成用JWT,所以调整为不创建和使用Session
+         * ALWAYS       总是会新建一个Session
+         * NEVER        不会新建HttpSession，但是如果有Session存在，就会使用它
+         * IF_REQUIRED  如果有要求的话，会新建一个Session
+         * STATELESS    不会新建，也不会使用一个HttpSession
          */
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
-        http.authorizeRequests()
-                .antMatchers("/auth/**", "/token/**").permitAll()
-                .antMatchers("/static/**", "/css/**", "/js/**", "/images/**").permitAll()
-                .anyRequest().authenticated();
+        /**
+         * 配置JWT过滤器
+         * addFilterBefore在指定的Filter类之前添加过滤器
+         */
+        http.addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);
+
     }
 }

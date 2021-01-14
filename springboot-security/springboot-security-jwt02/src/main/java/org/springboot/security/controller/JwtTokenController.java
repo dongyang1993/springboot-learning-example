@@ -1,16 +1,17 @@
 package org.springboot.security.controller;
 
-import cn.hutool.crypto.SecureUtil;
 import cn.hutool.json.JSONUtil;
 import com.nimbusds.jose.JOSEException;
 import io.swagger.annotations.ApiOperation;
-import lombok.extern.java.Log;
 import lombok.extern.slf4j.Slf4j;
 import org.springboot.security.common.api.Rs;
 import org.springboot.security.entity.PayloadDTO;
 import org.springboot.security.service.JwtTokenService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.text.ParseException;
 
@@ -29,8 +30,8 @@ public class JwtTokenController {
     @GetMapping("/hmac/generate")
     public Rs<String> generateTokenByHMAC() {
         try {
-            PayloadDTO payloadDTO = jwtTokenService.getDefaultPayload();
-            String token = jwtTokenService.generateTokenByHMAC(JSONUtil.toJsonStr(payloadDTO), SecureUtil.md5(secret));
+            PayloadDTO payloadDTO = jwtTokenService.getDefaultPayload(null);
+            String token = jwtTokenService.generateTokenByHMAC(JSONUtil.toJsonStr(payloadDTO));
             return Rs.success(token);
         } catch (Exception e) {
             log.error("", e);
@@ -45,7 +46,7 @@ public class JwtTokenController {
     @ResponseBody
     public Rs verifyTokenByHMAC(String token) {
         try {
-            PayloadDTO payloadDto  = jwtTokenService.verifyTokenByHMAC(token, SecureUtil.md5("test"));
+            PayloadDTO payloadDto  = jwtTokenService.verifyTokenByHMAC(token);
             return Rs.success(payloadDto);
         } catch (ParseException | JOSEException e) {
             log.error("", e);
