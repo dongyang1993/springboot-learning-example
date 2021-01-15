@@ -59,12 +59,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
-        provider.setUserDetailsService(userDetailsService);
-        provider.setHideUserNotFoundExceptions(false);
-        provider.setPasswordEncoder(passwordEncoder());
-        auth.authenticationProvider(provider);
-//        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+        /**
+         * DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+         * provider.setUserDetailsService(userDetailsService);
+         * provider.setHideUserNotFoundExceptions(false);
+         * provider.setPasswordEncoder(passwordEncoder());
+         * auth.authenticationProvider(provider);
+         * 这种和下面用的功能基本上是一样的，不过可以对内部的配置进行一些修改
+         */
+        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
     }
 
     /**
