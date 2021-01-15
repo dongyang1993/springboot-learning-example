@@ -21,7 +21,7 @@ public class SysUser implements UserDetails {
     private static long serialVersionUID = 1L;
 
     @TableId("id")
-    private long id;
+    private Long id;
     @TableField("username")
     private String username;
     @TableField("password")

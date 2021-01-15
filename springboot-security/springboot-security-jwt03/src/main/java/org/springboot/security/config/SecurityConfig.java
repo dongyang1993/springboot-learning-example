@@ -58,7 +58,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) throws Exception {
         super.configure(web);
-//        web.ignoring().antMatchers("/static/**");
+//        web.ignoring().antMatchers("/static/**", "/css/**", "/js/**", "/images/**", "/favicon.ico");
     }
 
     @Override
@@ -78,7 +78,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.authorizeRequests()
                 .antMatchers("/auth/**").permitAll()
-                .antMatchers("/static/**", "/css/**", "/js/**", "/images/**").permitAll()
+                .antMatchers("/static/**", "/css/**", "/js/**", "/images/**", "/favicon.ico").permitAll()
                 .anyRequest().authenticated();
 
         /**

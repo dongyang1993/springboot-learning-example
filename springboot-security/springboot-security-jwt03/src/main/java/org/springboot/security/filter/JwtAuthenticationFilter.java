@@ -26,7 +26,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         this.setRequiresAuthenticationRequestMatcher(new AntPathRequestMatcher("/auth/login", "POST"));
         this.setAuthenticationManager(authenticationManager);
         this.setAuthenticationSuccessHandler(new ForwardAuthenticationSuccessHandler("/auth/getToken"));
-        this.setAuthenticationFailureHandler(new ForwardAuthenticationFailureHandler("/token/hmac/generate"));
+        this.setAuthenticationFailureHandler(new ForwardAuthenticationFailureHandler("/auth/getToken"));
     }
 
     @Override

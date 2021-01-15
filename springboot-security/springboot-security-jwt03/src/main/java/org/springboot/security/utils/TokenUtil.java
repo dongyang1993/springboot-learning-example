@@ -29,6 +29,8 @@ import java.util.UUID;
  * iat (Issued At)：签发时间
  * jti (JWT ID)：编号
  * JWT 默认是不加密的
+ *
+ * https://github.com/jwtk/jjwt
  */
 public final class TokenUtil {
 
