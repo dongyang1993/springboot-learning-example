@@ -2,16 +2,14 @@ package org.springboot.security.controller;
 
 import com.nimbusds.jose.JOSEException;
 import io.swagger.annotations.ApiOperation;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springboot.security.common.api.Rs;
 import org.springboot.security.service.AuthService;
 import org.springboot.security.utils.TokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RequestMapping("/auth")
@@ -41,5 +39,11 @@ public class AuthController {
             log.error("生成token异常", e);
             return Rs.failed("生成token异常");
         }
+    }
+
+    @ApiOperation("登陆失败")
+    @RequestMapping("/fail")
+    public Rs fail(@RequestAttribute(value = "msg", required = false) String msg) {
+        return Rs.failed(msg);
     }
 }

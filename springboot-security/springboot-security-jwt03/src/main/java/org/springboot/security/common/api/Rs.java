@@ -88,8 +88,8 @@ public class Rs<T> {
     /**
      * 未授权返回结果
      */
-    public static <T> Rs<T> forbidden(T data) {
-        return new Rs<T>(ResultCode.FORBIDDEN.getCode(), ResultCode.FORBIDDEN.getMessage(), data);
+    public static <T> Rs<T> forbidden() {
+        return new Rs<T>(ResultCode.FORBIDDEN.getCode(), ResultCode.FORBIDDEN.getMessage(), null);
     }
 
     public long getCode() {

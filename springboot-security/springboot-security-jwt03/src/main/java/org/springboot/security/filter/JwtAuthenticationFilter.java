@@ -26,7 +26,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         this.setRequiresAuthenticationRequestMatcher(new AntPathRequestMatcher("/auth/login", "POST"));
         this.setAuthenticationManager(authenticationManager);
         this.setAuthenticationSuccessHandler(new ForwardAuthenticationSuccessHandler("/auth/getToken"));
-        this.setAuthenticationFailureHandler(new ForwardAuthenticationFailureHandler("/auth/getToken"));
+        this.setAuthenticationFailureHandler(new ForwardAuthenticationFailureHandler("/auth/fail"));
     }
 
     @Override
@@ -58,6 +58,10 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
     @Override
     protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) throws IOException, ServletException {
+        request.setAttribute("msg", failed.getMessage());
+        /**
+         * 这里可以根据异常类型不同，订制不同的提示语
+         */
         super.unsuccessfulAuthentication(request, response, failed);
     }
 
