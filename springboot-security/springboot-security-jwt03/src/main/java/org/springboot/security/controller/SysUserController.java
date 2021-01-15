@@ -13,7 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/user")
-public class MineUserController {
+public class SysUserController {
 
     @Autowired
     private SysUserService mineUserService;

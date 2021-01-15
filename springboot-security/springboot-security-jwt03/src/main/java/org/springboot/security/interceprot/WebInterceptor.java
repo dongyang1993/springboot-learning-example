@@ -1,7 +1,7 @@
 package org.springboot.security.interceprot;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
+import org.springboot.security.utils.JacksonUtil;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -24,8 +24,7 @@ public class WebInterceptor implements HandlerInterceptor {
         String method = request.getMethod();
         String uri = request.getRequestURI();
         Map<String, String[]> parameterMap = request.getParameterMap();
-        ObjectMapper mapper = new ObjectMapper();
-        String json = mapper.writeValueAsString(parameterMap);
+        String json = JacksonUtil.toJson(parameterMap);
         log.info("Interceptor | URI: {} | Method: {} | Params: {}", uri, method, json);
         return true;
     }
