@@ -1,9 +1,10 @@
 package org.springboot.security.common.api;
 
 /**
- * 通用返回对象
- * Created by macro on 2019/4/19.
- */
+ * @Author DongYang
+ * @Description
+ * @Date 2021/1/16 19:52
+ **/
 public class Rs<T> {
     private long code;
     private String message;
@@ -23,8 +24,8 @@ public class Rs<T> {
      *
      * @param data 获取的数据
      */
-    public static <T> Rs<T> success(T data) {
-        return new Rs<T>(ResultCode.SUCCESS.getCode(), ResultCode.SUCCESS.getMessage(), data);
+    public static <T> Rs<T> ok(T data) {
+        return new Rs<T>(RsCode.OK.getCode(), RsCode.OK.getMessage(), data);
     }
 
     /**
@@ -33,17 +34,15 @@ public class Rs<T> {
      * @param data    获取的数据
      * @param message 提示信息
      */
-    public static <T> Rs<T> success(T data, String message) {
-        return new Rs<T>(ResultCode.SUCCESS.getCode(), message, data);
+    public static <T> Rs<T> ok(T data, String message) {
+        return new Rs<T>(RsCode.OK.getCode(), message, data);
     }
 
     /**
      * 失败返回结果
-     *
-     * @param errorCode 错误码
      */
-    public static <T> Rs<T> failed(IErrorCode errorCode) {
-        return new Rs<T>(errorCode.getCode(), errorCode.getMessage(), null);
+    public static <T> Rs<T> failed(RsCode rsCode) {
+        return new Rs<T>(rsCode.getCode(), rsCode.getMessage(), null);
     }
 
     /**
@@ -52,21 +51,21 @@ public class Rs<T> {
      * @param message 提示信息
      */
     public static <T> Rs<T> failed(String message) {
-        return new Rs<T>(ResultCode.FAILED.getCode(), message, null);
+        return new Rs<T>(RsCode.FAILED.getCode(), message, null);
     }
 
     /**
      * 失败返回结果
      */
     public static <T> Rs<T> failed() {
-        return failed(ResultCode.FAILED);
+        return failed(RsCode.FAILED);
     }
 
     /**
      * 参数验证失败返回结果
      */
-    public static <T> Rs<T> validateFailed() {
-        return failed(ResultCode.VALIDATE_FAILED);
+    public static <T> Rs<T> badRequest() {
+        return failed(RsCode.BAD_REQUEST);
     }
 
     /**
@@ -74,22 +73,22 @@ public class Rs<T> {
      *
      * @param message 提示信息
      */
-    public static <T> Rs<T> validateFailed(String message) {
-        return new Rs<T>(ResultCode.VALIDATE_FAILED.getCode(), message, null);
+    public static <T> Rs<T> badRequest(String message) {
+        return new Rs<T>(RsCode.BAD_REQUEST.getCode(), message, null);
     }
 
     /**
      * 未登录返回结果
      */
     public static <T> Rs<T> unauthorized(T data) {
-        return new Rs<T>(ResultCode.UNAUTHORIZED.getCode(), ResultCode.UNAUTHORIZED.getMessage(), data);
+        return new Rs<T>(RsCode.UNAUTHORIZED.getCode(), RsCode.UNAUTHORIZED.getMessage(), data);
     }
 
     /**
      * 未授权返回结果
      */
     public static <T> Rs<T> forbidden() {
-        return new Rs<T>(ResultCode.FORBIDDEN.getCode(), ResultCode.FORBIDDEN.getMessage(), null);
+        return new Rs<T>(RsCode.FORBIDDEN.getCode(), RsCode.FORBIDDEN.getMessage(), null);
     }
 
     public long getCode() {

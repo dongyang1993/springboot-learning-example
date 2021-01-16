@@ -11,12 +11,17 @@ public abstract class BaseController {
 
     public HttpServletRequest getRequest() {
         ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        HttpServletRequest request = requestAttributes.getRequest();
         return requestAttributes.getRequest();
     }
 
     public HttpServletResponse getResponse() {
         ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         return requestAttributes.getResponse();
+    }
+
+    public boolean isUserInRole(String role) {
+        return this.getRequest().isUserInRole(role);
     }
 
     public String getUsername() {

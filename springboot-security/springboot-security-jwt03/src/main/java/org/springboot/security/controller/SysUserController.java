@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.security.Permission;
 import java.util.List;
 
 @RestController
@@ -25,6 +24,6 @@ public class SysUserController {
     @GetMapping("/listAll")
     public Rs<List<SysUser>> listAll() {
         List<SysUser> userList = mineUserService.listAll();
-        return Rs.success(userList);
+        return Rs.ok(userList);
     }
 }

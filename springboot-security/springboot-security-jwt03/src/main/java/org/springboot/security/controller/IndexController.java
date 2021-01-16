@@ -9,6 +9,6 @@ public class IndexController extends BaseController {
 
     @RequestMapping("/index")
     public Rs index() {
-        return Rs.success("INDEX");
+        return Rs.ok("INDEX");
     }
 }

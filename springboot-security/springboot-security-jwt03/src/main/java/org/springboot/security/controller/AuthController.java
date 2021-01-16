@@ -2,7 +2,6 @@ package org.springboot.security.controller;
 
 import com.nimbusds.jose.JOSEException;
 import io.swagger.annotations.ApiOperation;
-import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springboot.security.common.api.Rs;
 import org.springboot.security.service.AuthService;
@@ -34,7 +33,7 @@ public class AuthController {
         try {
             String payload = TokenUtil.getDefaultPayload(username, expiration);
             String token = TokenUtil.generateTokenByHMAC(payload, secret);
-            return Rs.success(tokenHead + token);
+            return Rs.ok(tokenHead + token);
         } catch (JOSEException e) {
             log.error("生成token异常", e);
             return Rs.failed("生成token异常");
