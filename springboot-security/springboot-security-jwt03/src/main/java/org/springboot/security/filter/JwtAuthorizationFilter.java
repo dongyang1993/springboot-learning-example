@@ -55,7 +55,7 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
             PayloadDTO payloadDTO = TokenUtil.verifyTokenByHMAC(token, secret);
             String username = payloadDTO.getUsername();
             UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
-            return new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+            return new UsernamePasswordAuthenticationToken(userDetails.getUsername(), null, userDetails.getAuthorities());
         } catch (Exception e) {
             log.error("token验证异常", e);
             return null;

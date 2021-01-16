@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class IndexController {
+public class IndexController extends BaseController {
 
     @RequestMapping("/index")
     public Rs index() {

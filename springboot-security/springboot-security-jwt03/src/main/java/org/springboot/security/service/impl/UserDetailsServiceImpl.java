@@ -27,7 +27,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             throw new UsernameNotFoundException("Username Not Found");
         }
         //权限
-        List<GrantedAuthority> authorities = AuthorityUtils.commaSeparatedStringToAuthorityList("/user/listAll");
+        List<GrantedAuthority> authorities = AuthorityUtils.commaSeparatedStringToAuthorityList("/user/listAll,/index");
         sysUser.setAuthorities(new HashSet<>(authorities));
         return sysUser;
     }
