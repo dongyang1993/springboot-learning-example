@@ -1,5 +1,6 @@
 package org.springboot.security.config;
 
+import org.springboot.security.filter.JwtAccessDecisionManager;
 import org.springboot.security.filter.JwtAuthenticationFilter;
 import org.springboot.security.filter.JwtAuthorizationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,7 +8,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -20,7 +20,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.access.AccessDeniedHandlerImpl;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true)
 @EnableWebSecurity
@@ -48,7 +47,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     AccessDeniedHandler accessDeniedHandler() {
         AccessDeniedHandlerImpl accessDeniedHandler = new AccessDeniedHandlerImpl();
-        accessDeniedHandler.setErrorPage("/auth/fail");
+//        accessDeniedHandler.setErrorPage("/auth/forbidden");
         return accessDeniedHandler;
     }
 
@@ -87,7 +86,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
          * .loginPage("/login.html")
          * 这一行代码的功能是指定自定义的登陆页面HTML，
          * 如果不自定义的话，spring security回提供默认的html不过有于里面的css文件在国外，如果不开代理显示会有问题
-         *
+         * http.formLogin()加了这个会由FormLoginConfigurer进行一系列的自动配置
          */
 //        http.formLogin()
 //                .loginPage("/login.html")
@@ -95,11 +94,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                .successForwardUrl("/index")
 //                .permitAll();
 
-
         http.authorizeRequests()
                 .antMatchers("/auth/**").permitAll()
                 .antMatchers("/static/**", "/css/**", "/js/**", "/images/**", "/favicon.ico").permitAll()
-                .anyRequest().authenticated();
+                .anyRequest().authenticated().accessDecisionManager(new JwtAccessDecisionManager());
 
         /**
          * 配置JWT过滤器
@@ -108,12 +106,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.addFilter(new JwtAuthenticationFilter(authenticationManager()))
                 .addFilter(new JwtAuthorizationFilter(authenticationManager(), userDetailsService, tokenHeader, tokenHead, secret));
 
-
         /**
          * 配置异常情况处理
-         * 如果异常在@ControllerAdvice中被捕获了，这个地方配置的不一定能生效，两个地方二选一都可以
+         * 不设置也会有默认配置
          */
-//        http.exceptionHandling().accessDeniedHandler(accessDeniedHandler());
+        http.exceptionHandling().accessDeniedHandler(accessDeniedHandler());
 
         /**
          * 关闭CSRF防护

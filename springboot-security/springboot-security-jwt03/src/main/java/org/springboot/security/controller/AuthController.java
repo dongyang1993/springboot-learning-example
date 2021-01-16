@@ -46,4 +46,10 @@ public class AuthController {
     public Rs fail(@RequestAttribute(value = "msg", required = false) String msg) {
         return Rs.failed(msg);
     }
+
+    @ApiOperation("不允许访问")
+    @RequestMapping("/forbidden")
+    public Rs forbidden(@RequestAttribute(value = "msg", required = false) String msg) {
+        return Rs.failed(msg);
+    }
 }

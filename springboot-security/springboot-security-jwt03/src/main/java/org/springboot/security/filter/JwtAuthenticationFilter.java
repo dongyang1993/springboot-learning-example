@@ -60,6 +60,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) throws IOException, ServletException {
         request.setAttribute("msg", failed.getMessage());
         /**
+         * 登陆认证异常
          * 这里可以根据异常类型不同，订制不同的提示语
          */
         super.unsuccessfulAuthentication(request, response, failed);

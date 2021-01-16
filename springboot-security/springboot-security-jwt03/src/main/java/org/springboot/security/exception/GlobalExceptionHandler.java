@@ -17,6 +17,13 @@ public class GlobalExceptionHandler {
         return Rs.unauthorized(message);
     }
 
+    /**
+     * 会拦截处理进入到Controller时候的AccessDeniedException
+     * 比如：@PreAuthorize @Secured 注解控制权限的
+     * 没进入到Controller在过滤器中就过滤掉的，就进不来了
+     * @param e
+     * @return
+     */
     @ResponseBody
     @ExceptionHandler(value = AccessDeniedException.class)
     public Rs handleValidException(AccessDeniedException e) {

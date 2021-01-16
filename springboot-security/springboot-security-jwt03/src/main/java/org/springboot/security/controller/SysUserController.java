@@ -21,7 +21,7 @@ public class SysUserController {
     private SysUserService mineUserService;
 
     @ApiOperation(value = "获取全部用户列表")
-    @PreAuthorize("hasRole('ROLE_admin')")
+    @PreAuthorize("hasAuthority('/user/listAllZ')")
     @GetMapping("/listAll")
     public Rs<List<SysUser>> listAll() {
         List<SysUser> userList = mineUserService.listAll();
