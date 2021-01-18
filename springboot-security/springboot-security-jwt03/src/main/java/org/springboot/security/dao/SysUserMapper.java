@@ -5,5 +5,5 @@ import org.apache.ibatis.annotations.Mapper;
 import org.springboot.security.entity.SysUser;
 
 @Mapper
-public interface MineUserMapper extends BaseMapper<SysUser> {
+public interface SysUserMapper extends BaseMapper<SysUser> {
 }

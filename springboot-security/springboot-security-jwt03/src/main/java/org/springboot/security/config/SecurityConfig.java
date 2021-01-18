@@ -113,6 +113,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
          */
         http.exceptionHandling().accessDeniedHandler(accessDeniedHandler());
 
+//        http.logout().addLogoutHandler();
+
         /**
          * 关闭CSRF防护
           */
