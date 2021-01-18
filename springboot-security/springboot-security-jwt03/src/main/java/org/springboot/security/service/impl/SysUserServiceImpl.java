@@ -1,6 +1,7 @@
 package org.springboot.security.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import lombok.extern.slf4j.Slf4j;
 import org.springboot.security.dao.SysUserMapper;
 import org.springboot.security.entity.SysUser;
 import org.springboot.security.service.SysUserService;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.List;
 
+@Slf4j
 @Service
 public class SysUserServiceImpl implements SysUserService {
 
