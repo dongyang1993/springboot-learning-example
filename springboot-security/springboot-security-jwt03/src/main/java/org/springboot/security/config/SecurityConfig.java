@@ -78,6 +78,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) throws Exception {
         super.configure(web);
+        web.ignoring().antMatchers("/swagger-ui/**");
 //        web.ignoring().antMatchers("/static/**", "/css/**", "/js/**", "/images/**", "/favicon.ico");
     }
 
@@ -96,9 +97,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                .permitAll();
 
         http.authorizeRequests()
+//                .antMatchers("/auth/getToken").authenticated()
                 .antMatchers("/auth/**").permitAll()
+                .antMatchers("/swagger-ui/**", "/swagger-resources/**", "/v3/api-docs").permitAll()
                 .antMatchers("/static/**", "/css/**", "/js/**", "/images/**", "/favicon.ico").permitAll()
-                .anyRequest().authenticated().accessDecisionManager(new JwtAccessDecisionManager());
+                .anyRequest().authenticated();//.accessDecisionManager(new JwtAccessDecisionManager());
 
         /**
          * 配置JWT过滤器

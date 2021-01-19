@@ -20,7 +20,7 @@ public class SysUserController {
     private SysUserService mineUserService;
 
     @ApiOperation(value = "获取全部用户列表")
-    @PreAuthorize("hasAuthority('/user/listAll')")
+//    @PreAuthorize("hasAuthority('/user/listAll')")
     @GetMapping("/listAll")
     public Rs<List<SysUser>> listAll() {
         List<SysUser> userList = mineUserService.listAll();

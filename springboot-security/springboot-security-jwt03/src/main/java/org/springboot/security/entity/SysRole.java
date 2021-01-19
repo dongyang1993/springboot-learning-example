@@ -1,5 +1,8 @@
 package org.springboot.security.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.KeySequence;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
@@ -11,6 +14,7 @@ public class SysRole {
     /**
      * 主键ID
      */
+    @TableId(type = IdType.ASSIGN_ID)
     private long id;
     /**
      * 角色名

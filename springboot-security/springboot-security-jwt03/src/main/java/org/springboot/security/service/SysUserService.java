@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface SysUserService {
 
-    @PreAuthorize("hasAuthority('/xxx')")
+//    @PreAuthorize("hasAuthority('/xxx')")
     List<SysUser> listAll();
 
     SysUser getByUsername(String username);
