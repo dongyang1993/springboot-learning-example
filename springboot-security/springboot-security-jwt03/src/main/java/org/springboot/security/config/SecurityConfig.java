@@ -1,6 +1,5 @@
 package org.springboot.security.config;
 
-import org.springboot.security.filter.JwtAccessDecisionManager;
 import org.springboot.security.filter.JwtAuthenticationFilter;
 import org.springboot.security.filter.JwtAuthorizationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
