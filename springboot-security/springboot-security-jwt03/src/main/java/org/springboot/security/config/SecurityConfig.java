@@ -94,7 +94,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                .loginProcessingUrl("/auth/login")
 //                .successForwardUrl("/index")
 //                .permitAll();
-
         http.authorizeRequests()
 //                .antMatchers("/auth/getToken").authenticated()
                 .antMatchers("/auth/**").permitAll()
